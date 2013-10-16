@@ -1,0 +1,44 @@
+
+
+Demandas Westcon 11/10/2013
+
+1. Verificar fórmula para popular um campo de acordo com uma operação aritmética
+
+	- https://marketplace.atlassian.com/plugins/com.fca.jira.plugins.workflowToolbox.workflow-toolbox
+	- Post Function: Mathematical and date-time expression calculator
+	
+2. Fazer redirecionamento de http para https no acesso ao Jira 	
+
+	Redirecting certain pages to HTTPS
+	You can redirect users from HTTP URLs to HTTPS URLs by choosing the 'HTTP & HTTPS' profile in the JIRA configuration tool. However, if you want to only redirect certain pages to HTTPS, you can do this manually. To do this, select the 'HTTPS only' profile in the JIRA configuration tool and save the configuration. Then edit the WEB-INF/web.xml file and add the following section at the end of the file, before the closing </web-app>:
+
+		<security-constraint>
+		<web-resource-collection>
+		<web-resource-name>all-except-attachments</web-resource-name>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>*.jspa</url-pattern>
+		<url-pattern>/browse/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+		</security-constraint>
+
+3.	Verificar integração do JIRA com o SVN	
+	- JIRA Subversion Plugin: https://marketplace.atlassian.com/plugins/com.atlassian.jira.plugin.ext.subversion
+	- Como instalar: https://ecosystem.atlassian.net/wiki/display/SVN/Subversion+JIRA+plugin;jsessionid=49909110110043235A53CF2E9750823E
+
+4.	Enviar solução para o João de conexão SSL do JIRA:
+	1º Alterar o arquivo server.xml, localizado no diretório: C:\Program Files\Atlassian\JIRA-5-0-2\conf\server.xml
+	2º Adicinar a referência para a porta 443 e colocar o diretório do arquivo SSL:
+		<Connector port="443" protocol="org.apache.coyote.http11.Http11Protocol" 
+			maxHttpHeaderSize="8192" SSLEnabled="true"
+			maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
+			enableLookups="false" disableUploadTimeout="true"
+			acceptCount="100" scheme="https" secure="true"
+			clientAuth="false" sslProtocol="TLS" useBodyEncodingForURI="true"
+			URIEncoding="UTF-8"
+			keystoreType="PKCS12"
+			keystoreFile="C:\Cert_Jira\cert2_jira.pfx"
+			keystorePass="westcon" />
+	
